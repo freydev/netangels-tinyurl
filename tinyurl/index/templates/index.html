@@ -1,0 +1,33 @@
+{% extends '_base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <form method="POST">
+        {% csrf_token %}
+        {% render_field form.url class="h-size" placeholder="www.netangels.ru" %}
+        <input type="submit" value="tiny"/>
+    </form>
+    {% for error in form.url.errors %}
+        <label style="color: red">{{ error }}</label>
+    {% endfor %}
+
+    <h2>Recent URLs</h2>
+    <table cols="5">
+        <tr>
+            <th>Короткая ссылка</th>
+            <th>Длинная ссылка</th>
+            <th>Посещяемость</th>
+            <th>Детали</th>
+        </tr>
+        {% for url_obj in recent_urls %}
+            <tr data-slug="{{ url_obj.slug }}">
+                <td><a href="{{ domain }}{% url 'redirect' url_obj.slug %}">
+                    {{ domain }}{% url 'redirect' url_obj.slug %}</a></td>
+                <td style="background-color: rgba(0, 255, 0, 0.12);"><a
+                        href="{{ url_obj.external_url }}">{{ url_obj.external_url }}</a></td>
+                <td>{{ url_obj.visited }}</td>
+                <td><a href="{% url 'detail' url_obj.slug %}"><i class="fa fa-navicon"></i></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

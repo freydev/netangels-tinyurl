@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>tinyurl</title>
+</head>
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    body {
+        font-family: Arial;
+    }
+
+    .wrapper {
+        width: 1170px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .h-size {
+        width: 50%;
+        margin: 0 auto;
+    }
+
+    td {
+        word-break: break-word;
+    }
+
+    .pagination {
+        padding: 20px;
+    }
+
+    .disabled {
+        pointer-events: none;
+        color: lightgray !important;
+    }
+
+    .disabled a {
+        color: inherit;
+    }
+
+    .menu {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu li {
+        display: inline;
+        padding: 10px;
+    }
+</style>
+<body>
+<div class="wrapper">
+    <a href="/"><h1>NetAngels - TinyURL</h1></a>
+    <ul class="menu">
+        <li><a href="/">Главная</a></li>
+        <li><a href="{% url 'list' %}">Список</a></li>
+    </ul>
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

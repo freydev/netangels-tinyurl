@@ -1,0 +1,31 @@
+{% extends '_base.html' %}
+{% block content %}
+    <table>
+        <tr>
+            <td>Внутренняя ссылка:</td>
+            <td style="background-color: rgba(0, 255, 0, 0.12);"><a href="{{ domain }}{% url 'redirect' object.slug %}">
+                {{ domain }}{% url 'redirect' object.slug %}</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Внешная ссылка:</td>
+            <td style="background-color: rgba(0, 255, 0, 0.12);"><a
+                    href="{{ object.external_url }}">{{ object.external_url }}</a></td>
+        </tr>
+        <tr>
+            <td>Посещений:</td>
+            <td style="background-color: rgba(0, 255, 0, 0.12);">{{ object.visited }}</td>
+        </tr>
+        <tr>
+            <td>Дата создания:</td>
+            <td style="background-color: rgba(0, 255, 0, 0.12);">{{ object.created_at }}</td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td>Ссылка на детали</td>
+            <td style="background-color: rgba(0, 255, 0, 0.12);"><a href="{{ domain }}{% url 'detail' object.slug %}">
+                {{ domain }}{% url 'detail' object.slug %}</a>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

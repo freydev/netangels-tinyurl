@@ -1,0 +1,58 @@
+{% extends '_base.html' %}
+{% block content %}
+    <script src="http://yandex.st/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('*[href="#del"]').on('click', function (e) {
+                e.preventDefault()
+                var csrf = "{% csrf_token %}"
+                $.post('{% url 'url_api' %}', {slug: $(this).parents('tr').data('slug'), csrfmiddlewaretoken: $(csrf).val(), method: 'DEL'}, function (data) {
+                            if (data == 200) $(this).parents('tr').addClass('disabled')
+                        }.bind(this)
+                )
+            })
+        })
+    </script>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <h2>URLs List</h2>
+    <table cols="5">
+        <tr>
+            <th>Короткая ссылка</th>
+            <th>Длинная ссылка</th>
+            <th>Посещяемость</th>
+            <th>Детали</th>
+            <th>Удалить</th>
+        </tr>
+        {% for url_obj in object_list %}
+            <tr data-slug="{{ url_obj.slug }}">
+                <td><a href="{{ domain }}{% url 'redirect' url_obj.slug %}">
+                    {{ domain }}{% url 'redirect' url_obj.slug %}</a></td>
+                <td style="background-color: rgba(0, 255, 0, 0.12);"><a
+                        href="{{ url_obj.external_url }}">{{ url_obj.external_url }}</a></td>
+                <td>{{ url_obj.visited }}</td>
+                <td><a href="{% url 'detail' url_obj.slug %}"><i class="fa fa-navicon"></i></a></td>
+                <td><a href="#del"><i class="fa fa-trash-o"></i></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% if is_paginated %}
+        <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-chevron-left"></i></a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-chevron-right"></i></a>
+            {% endif %}
+        </span>
+        </div>
+    {% endif %}
+{% endblock %}
