@@ -11,6 +11,7 @@
         <label style="color: red">{{ error }}</label>
     {% endfor %}
 
+    {% if recent_urls %}
     <h2>Recent URLs</h2>
     <table cols="5">
         <tr>
@@ -30,4 +31,5 @@
             </tr>
         {% endfor %}
     </table>
+    {% endif %}
 {% endblock %}

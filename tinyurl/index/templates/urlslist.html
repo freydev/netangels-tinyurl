@@ -16,6 +16,7 @@
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
+    {% if object_list %}
     <h2>URLs List</h2>
     <table cols="5">
         <tr>
@@ -37,6 +38,7 @@
             </tr>
         {% endfor %}
     </table>
+    {% endif %}
 
     {% if is_paginated %}
         <div class="pagination">
