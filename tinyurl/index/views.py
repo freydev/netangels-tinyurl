@@ -62,6 +62,7 @@ class UrlDetail(DetailView):
 
 
 class UrlRedirect(RedirectView):
+    permanent = False
     query_string = True
 
     def get_redirect_url(self, slug, *args, **kwargs):
